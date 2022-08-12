@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.css']
 })
-export class TopBarComponent { }
+export class TopBarComponent {
+
+  constructor( ) {
+
+  }
+
+}

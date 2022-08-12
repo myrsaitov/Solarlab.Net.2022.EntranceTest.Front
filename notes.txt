@@ -1,0 +1,10 @@
+git push -u origin master
+
+ng generate component components/card/card-list
+ng generate component components/card/card-alerts
+	RouterModule.forRoot([... 	
+	{ path: '', component: CardListComponent },
+
+ng generate component components/card/card-details
+RouterModule.forRoot([...
+	{ path: 'cards/:cardId', component: CardDetailsComponent },
