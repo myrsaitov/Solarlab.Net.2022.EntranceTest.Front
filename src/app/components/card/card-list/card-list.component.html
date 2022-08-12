@@ -1,0 +1,26 @@
+<h2>Congratulation Cards</h2>
+
+<div *ngFor="let card of cards">
+
+  <h3>
+    <a
+      [title]="card.title + ' details'"
+      [routerLink]="['/products', card.id]">
+      {{ card.title }}
+    </a>
+  </h3>
+
+  <p *ngIf="card.body">
+    Description: {{ card.body }}
+  </p>
+
+  <button type="button" (click)="share()">
+    Share
+  </button>
+
+  <app-card-alerts
+    [card]="card"
+    (notify)="onNotify()">
+  </app-card-alerts>
+
+</div>

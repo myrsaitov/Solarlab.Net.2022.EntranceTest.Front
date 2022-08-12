@@ -1,6 +1,6 @@
 export interface ICard {
   id: number;
-  tittle: string;
+  title: string;
   body: string;
   email: string;
 }
@@ -8,7 +8,7 @@ export interface ICard {
 export const cards: ICard[] = [
   {
     id: 1,
-    tittle: 'Поздравление пользователя 1',
+    title: 'Поздравление пользователя 1',
     body:
       'Тебе желаю море счастья,\n' +
       'Улыбок, солнца и тепла.\n' +
@@ -18,7 +18,7 @@ export const cards: ICard[] = [
   },
   {
     id: 2,
-    tittle: 'Поздравление пользователя 2',
+    title: 'Поздравление пользователя 2',
     body:
       'Пусть в доме будет только радость,\n' +
       'Уют, достаток и покой.\n' +
@@ -28,7 +28,7 @@ export const cards: ICard[] = [
   },
   {
     id: 3,
-    tittle: 'Поздравление пользователя 3',
+    title: 'Поздравление пользователя 3',
     body:
       'Здоровья крепкого желаю\n' +
       'И легких жизненных дорог.\n' +
