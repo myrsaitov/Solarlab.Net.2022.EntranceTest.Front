@@ -1,10 +1,12 @@
-https://stackblitz.com/run?file=src%2Fapp%2Fproduct-alerts%2Fproduct-alerts.component.ts,src%2Fapp%2Fproduct-alerts%2Fproduct-alerts.component.html,src%2Fapp%2Fproduct-details%2Fproduct-details.component.ts
+https://stackblitz.com/angular/gqgalmavnrd?file=src%2Fapp%2Fproduct-alerts%2Fproduct-alerts.component.ts
+
+mpm install
 
 git push -u origin master
 
 ng generate component components/card/card-list
 ng generate component components/card/card-alerts
-	RouterModule.forRoot([... 	
+	RouterModule.forRoot([...
 	{ path: '', component: CardListComponent },
 
 ng generate component components/card/card-details
