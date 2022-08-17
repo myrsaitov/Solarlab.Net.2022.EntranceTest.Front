@@ -6,24 +6,33 @@ git push -u origin master
 ##############################################################
 mpm install
 
+# Установить Material
+# В процессе выбрать тему! Стрелочками!
+  ng add @angular/material
+
+ng add @angular/cdk
+
 ##############################################################
 # Основные компоненты интерфейса
 # Вызываются в "app.component.html"
 ##############################################################
-  ng generate component components/app/tob-bar
+  ng generate component app-components/top-bar
+  ng generate component app-components/bottom-bar
+  ng generate component app-components/left-column
+  ng generate component app-components/right-column
 
 ##############################################################
-# Компоненты визуализации бизнес-логики
+# Компоненты визуализации сущностей
 ##############################################################
-  ng generate component components/business/card/card-view-low-details
-  ng generate component components/business/card/card-view-high-details
-  ng generate component components/business/card/card-pagination
+  ng generate component app-components/instances/card/card-view-low-details
+  ng generate component app-components/instances/card/card-view-high-details
+  ng generate component app-components/instances/card/card-pagination
 
 ##############################################################
 # Страницы роутера
 ##############################################################
-  ng generate component components/router-pages/dashboard
-  ng generate component components/router-pages/view
+  ng generate component app-components/router-pages/dashboard
+  ng generate component app-components/router-pages/view
 
 ##############################################################
 # Прикрепление URI к страницам роутера

@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {ICard} from "../card-interface/icard";
 
 @Component({
-  selector: 'app-components-card-view-low-details',
+  selector: 'app-card-view-low-details',
   templateUrl: './card-view-low-details.component.html',
   styleUrls: ['./card-view-low-details.component.css']
 })

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {cards} from "../../../instances/card/card-interface/icard";
+import {cards} from "../../instances/card/card-interface/icard";
 
 @Component({
-  selector: 'app-components-dashboard',
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
