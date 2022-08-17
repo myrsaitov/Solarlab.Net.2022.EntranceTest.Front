@@ -2,25 +2,29 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { TopBarComponent } from './components/app/top-bar/top-bar.component';
 import {RouterModule} from "@angular/router";
-import { CardListComponent } from './components/card/card-list/card-list.component';
-import { CardAlertsComponent } from './components/card/card-alerts/card-alerts.component';
-import { CardDetailsComponent } from './components/card/card-details/card-details.component';
+import { CardPaginationComponent } from './components/business/card/card-pagination/card-pagination.component';
+import { CardViewLowDetailsComponent } from './components/business/card/card-view-low-details/card-view-low-details.component';
+import { CardViewHighDetailsComponent } from './components/business/card/card-view-high-details/card-view-high-details.component';
+import { DashboardComponent } from './components/router-pages/dashboard/dashboard.component';
+import { ViewComponent } from './components/router-pages/view/view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
-    CardListComponent,
-    CardAlertsComponent,
-    CardDetailsComponent
+    CardPaginationComponent,
+    CardViewLowDetailsComponent,
+    CardViewHighDetailsComponent,
+    DashboardComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: '', component: CardListComponent },
-      { path: 'cards/:cardId', component: CardDetailsComponent },
+      { path: '', component: DashboardComponent },
+      { path: 'cards/:cardId', component: ViewComponent },
     ])
   ],
   providers: [],

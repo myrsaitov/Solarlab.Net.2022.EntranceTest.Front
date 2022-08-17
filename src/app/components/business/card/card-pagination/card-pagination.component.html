@@ -1,0 +1,25 @@
+<!-- Выводит пажинированные карточки объявлений -->
+<!-- Строка -->
+<div class="row mb-2" *ngIf="cards; else loadingBlock">
+  <ng-container *ngFor="let item of cards">
+    <app-card-view-low-details
+      class="col-sm-4 mb-4"
+      [card]="item">
+    </app-card-view-low-details>
+  </ng-container>
+</div>
+<!-- Конец строки -->
+
+
+<!-- Шаблоны:
+  https://angular.io/api/core/ng-template#description
+  With <ng-template>, you can define
+  template content that is only being rendered
+  by Angular when you, whether directly or indirectly,
+  specifically instruct it to do so, allowing you to
+  have full control over how and when the content is displayed. -->
+
+<!-- Выводится, если нет связи с сервисом -->
+<ng-template #loadingBlock>
+  Загрузка...
+</ng-template>

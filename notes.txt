@@ -1,14 +1,46 @@
 https://stackblitz.com/angular/gqgalmavnrd?file=src%2Fapp%2Fproduct-alerts%2Fproduct-alerts.component.ts
-
-mpm install
-
 git push -u origin master
 
-ng generate component components/card/card-list
-ng generate component components/card/card-alerts
-	RouterModule.forRoot([...
-	{ path: '', component: CardListComponent },
+##############################################################
+# Делается единожды после клонирования
+##############################################################
+mpm install
 
-ng generate component components/card/card-details
-RouterModule.forRoot([...
-	{ path: 'cards/:cardId', component: CardDetailsComponent },
+##############################################################
+# Основные компоненты интерфейса
+# Вызываются в "app.component.html"
+##############################################################
+  ng generate component components/app/tob-bar
+
+##############################################################
+# Компоненты визуализации бизнес-логики
+##############################################################
+  ng generate component components/business/card/card-view-low-details
+  ng generate component components/business/card/card-view-high-details
+  ng generate component components/business/card/card-pagination
+
+##############################################################
+# Страницы роутера
+##############################################################
+  ng generate component components/router-pages/dashboard
+  ng generate component components/router-pages/view
+
+##############################################################
+# Прикрепление URI к страницам роутера
+# Файл: "app.modules.ts"
+##############################################################
+...
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot([
+      { path: '', component: DashboardComponent },
+      { path: 'cards/:cardId', component: ViewComponent },
+    ])
+  ],
+...
+
+
+Fails:
+
+Cannot find module '@angular-devkit/build-angular/package.json'
+npm install --save-dev @angular-devkit/build-angular

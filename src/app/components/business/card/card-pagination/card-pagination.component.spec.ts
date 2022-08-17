@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardAlertsComponent } from './card-alerts.component';
+import { CardPaginationComponent } from './card-pagination.component';
 
-describe('CardAlertsComponent', () => {
-  let component: CardAlertsComponent;
-  let fixture: ComponentFixture<CardAlertsComponent>;
+describe('CardPaginationComponent', () => {
+  let component: CardPaginationComponent;
+  let fixture: ComponentFixture<CardPaginationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CardAlertsComponent ]
+      declarations: [ CardPaginationComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CardAlertsComponent);
+    fixture = TestBed.createComponent(CardPaginationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

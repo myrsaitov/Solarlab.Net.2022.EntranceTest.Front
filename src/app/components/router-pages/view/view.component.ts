@@ -1,22 +1,18 @@
-import {Component} from '@angular/core';
-import {cards, ICard} from "../../../models/card";
+import { Component, OnInit } from '@angular/core';
+import {cards, ICard} from "../../../interfaces/icard";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-card-details',
-  templateUrl: './card-details.component.html',
-  styleUrls: ['./card-details.component.css']
+  selector: 'app-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.css']
 })
-export class CardDetailsComponent {
-
+export class ViewComponent implements OnInit {
   card: ICard | undefined;
-
-  constructor(
-    private route: ActivatedRoute
-  ) {
-  }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+
     // First get the product id from the current route.
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = Number(routeParams.get('cardId'));

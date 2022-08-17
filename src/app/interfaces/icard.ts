@@ -3,6 +3,7 @@ export interface ICard {
   title: string;
   body: string;
   email: string;
+  imageUri: string;
 }
 
 export const cards: ICard[] = [
@@ -14,7 +15,8 @@ export const cards: ICard[] = [
       'Улыбок, солнца и тепла.\n' +
       'Чтоб жизнь была еще прекрасней,\n' +
       'Удача за руку вела!\n',
-    email: 'user1@mail.ru'
+    email: 'user1@mail.ru',
+    imageUri: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'
   },
   {
     id: 2,
@@ -24,7 +26,8 @@ export const cards: ICard[] = [
       'Уют, достаток и покой.\n' +
       'Друзья, родные будут рядом,\n' +
       'Беда обходит стороной!\n',
-    email: 'user2@mail.ru'
+    email: 'user2@mail.ru',
+    imageUri: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'
   },
   {
     id: 3,
@@ -34,6 +37,7 @@ export const cards: ICard[] = [
       'И легких жизненных дорог.\n' +
       'И пусть всегда, благословляя,\n' +
       'Тебя хранит твой ангелок!\n',
-    email: 'user3@mail.ru'
+    email: 'user3@mail.ru',
+    imageUri: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'
   }
 ];
