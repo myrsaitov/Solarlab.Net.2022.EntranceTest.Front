@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {cards, ICard} from "../../../interfaces/icard";
+import {cards, ICard} from "../../../instances/card/card-interface/icard";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-view',
+  selector: 'app-components-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.css']
 })

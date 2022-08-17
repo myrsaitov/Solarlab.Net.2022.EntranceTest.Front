@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {ICard, cards} from "../../../../interfaces/icard";
+import {ICard, cards} from "../card-interface/icard";
 
 @Component({
-  selector: 'app-card-pagination',
+  selector: 'app-components-card-pagination',
   templateUrl: './card-pagination.component.html',
   styleUrls: ['./card-pagination.component.css']
 })
