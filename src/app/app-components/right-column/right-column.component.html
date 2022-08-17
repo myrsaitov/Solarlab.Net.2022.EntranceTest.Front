@@ -1,1 +1,12 @@
-<p>right-column works!</p>
+<div *ngIf="tags" class="col">
+  <ul>
+    <div>Поиск по тагам</div>
+  </ul>
+  <ul>
+    <div *ngFor="let tag of tags">
+      <a class="badge badge-secondary"
+         role="button">{{tag.body}}
+      </a>      &nbsp;&nbsp;
+    </div>
+  </ul>
+</div>

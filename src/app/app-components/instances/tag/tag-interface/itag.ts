@@ -1,27 +1,27 @@
 export interface ITag {
   id: number;
-  text: string;
+  body: string;
 }
 
 export const tags: ITag[] = [
   {
     id: 1,
-    text: 'мама',
+    body: 'мама',
   },
   {
     id: 2,
-    text: 'папа',
+    body: 'папа',
   },
   {
     id: 3,
-    text: 'бабушка',
+    body: 'бабушка',
   },
   {
     id: 4,
-    text: 'дедушка',
+    body: 'дедушка',
   },
   {
     id: 5,
-    text: 'дядя',
+    body: 'дядя',
   }
 ];
