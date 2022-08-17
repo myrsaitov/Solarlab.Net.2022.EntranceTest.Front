@@ -1,15 +1,13 @@
 <!-- Выводит пажинированные карточки объявлений -->
-<!-- Строка -->
-<div class="row mb-2" *ngIf="cards; else loadingBlock">
+<mat-grid-list cols="30" *ngIf="cards; else loadingBlock">
   <ng-container *ngFor="let item of cards">
-    <app-card-view-low-details
-      class="col-sm-4 mb-4"
-      [card]="item">
-    </app-card-view-low-details>
+    <mat-grid-tile colspan='10'>
+      <app-card-view-low-details
+        [card]="item">
+      </app-card-view-low-details>
+    </mat-grid-tile>
   </ng-container>
-</div>
-<!-- Конец строки -->
-
+</mat-grid-list>
 
 <!-- Шаблоны:
   https://angular.io/api/core/ng-template#description
