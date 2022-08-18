@@ -1,5 +1,9 @@
 <h2>Congratulation Cards</h2>
 
-<app-card-pagination
-  [congratulations] = "congratulations">
-</app-card-pagination>
+<virtual-scroll [itemHeight]="125" [itemWidth]="250">
+  <div virtualScrollGrid *virtualFor="let _accounts in congratulations">
+    <ng-container *ngFor="let account of _accounts">
+      <account-card [account]="account"> </account-card>
+    </ng-container>
+  </div>
+</virtual-scroll>

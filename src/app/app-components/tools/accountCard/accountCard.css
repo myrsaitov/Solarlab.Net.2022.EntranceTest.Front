@@ -52,12 +52,12 @@
 
 .actions__suspend {
   filter: invert(34%) sepia(0%) saturate(0%) hue-rotate(221deg) brightness(111%)
-  contrast(80%);
+    contrast(80%);
 }
 
 .actions__suspend:hover {
   filter: invert(74%) sepia(64%) saturate(873%) hue-rotate(324deg)
-  brightness(103%) contrast(94%);
+    brightness(103%) contrast(94%);
   transform: scale(1.1);
 }
 
@@ -67,12 +67,12 @@
 
 .actions__edit {
   filter: invert(34%) sepia(0%) saturate(0%) hue-rotate(221deg) brightness(111%)
-  contrast(80%);
+    contrast(80%);
 }
 
 .actions__edit:hover {
   filter: invert(42%) sepia(99%) saturate(420%) hue-rotate(161deg)
-  brightness(89%) contrast(92%);
+    brightness(89%) contrast(92%);
   transform: scale(1.1);
   cursor: pointer;
 }
@@ -83,12 +83,12 @@
 
 .actions__delete {
   filter: invert(34%) sepia(0%) saturate(0%) hue-rotate(221deg) brightness(111%)
-  contrast(80%);
+    contrast(80%);
 }
 
 .actions__delete:hover {
   filter: invert(36%) sepia(63%) saturate(1308%) hue-rotate(321deg)
-  brightness(98%) contrast(91%);
+    brightness(98%) contrast(91%);
   transform: scale(1.1);
 }
 

@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
-  congratulation: ICongratulation | undefined;
+  congratulation: ICongratulation;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -18,7 +18,7 @@ export class ViewComponent implements OnInit {
     const productIdFromRoute = Number(routeParams.get('cardId'));
 
     // Find the product that correspond with the id provided in route.
-    this.congratulation = congratulations.find(congratulation => congratulation.id === productIdFromRoute);
+    //this.congratulation = congratulations.find(congratulation => congratulation.id === productIdFromRoute);
 
   }
 
