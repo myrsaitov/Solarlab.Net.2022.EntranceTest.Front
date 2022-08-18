@@ -1,0 +1,17 @@
+<div *ngIf="categories" class="col">
+  <ul>
+    <div>Поиск по категориям</div>
+  </ul>
+  <ul>
+    <div *ngFor="let category of categories">
+      <!-- Группы категорий -->
+      <h2 *ngIf="!category.parentCategoryId"><br><br>{{category.name}}</h2>
+      <!-- Подкатегории -->
+      <a class="badge badge-secondary"
+         *ngIf="category.parentCategoryId"
+         role="button">{{category.name}}
+      </a>
+      &nbsp;&nbsp;
+    </div>
+  </ul>
+</div>

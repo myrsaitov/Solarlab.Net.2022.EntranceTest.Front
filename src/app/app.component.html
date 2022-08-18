@@ -6,24 +6,34 @@
 <!---------------------------------------------------------------------->
 <!-- Сетка -->
 <!---------------------------------------------------------------------->
-
-<!-- Ширина колонок задается отношением:
-  cols="100": colspan='20' + colspan='60' + colspan='20' -->
-<mat-grid-list cols="100" rowHeight="80%">
+<mat-grid-list
+  cols="100"
+  rowHeight="80%">
 
   <!-- Левая колонка 20% -->
-  <mat-grid-tile colspan='20'>
-    <app-left-column></app-left-column>
+  <mat-grid-tile
+    id="left-sidebar"
+    colspan='20'>
+    <app-left-column>
+    </app-left-column>
   </mat-grid-tile>
 
   <!-- Средняя колонка 60% -->
-  <mat-grid-tile colspan='60'>
-    <!-- Роутер -->
-    <router-outlet></router-outlet>
+  <mat-grid-tile
+    id="main-content"
+    colspan='60'>
+    <div class='internalMatGrid'>
+      <!-- Роутер -->
+      <div style="width:400%;">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </mat-grid-tile>
 
   <!-- Правая колонка 20% -->
-  <mat-grid-tile colspan='20'>
+  <mat-grid-tile
+    id="right-sidebar"
+    colspan='20'>
     <app-right-column></app-right-column>
   </mat-grid-tile>
 

@@ -20,10 +20,15 @@ PowerShell Admin: Set-ExecutionPolicy RemoteSigned
 # Основные компоненты интерфейса
 # Вызываются в "app.component.html"
 ##############################################################
-  ng generate component app-components/top-bar
-  ng generate component app-components/bottom-bar
-  ng generate component app-components/left-column
-  ng generate component app-components/right-column
+  ng generate component app-components/ui/top-bar
+  ng generate component app-components/ui/bottom-bar
+  ng generate component app-components/ui/left-column
+  ng generate component app-components/ui/right-column
+
+##############################################################
+# Компоненты инструментов
+##############################################################
+  ng generate component app-components/tools/virtual-scroll-bar
 
 ##############################################################
 # Компоненты визуализации сущностей
@@ -35,8 +40,8 @@ PowerShell Admin: Set-ExecutionPolicy RemoteSigned
 ##############################################################
 # Страницы роутера
 ##############################################################
-  ng generate component app-components/router-pages/dashboard
-  ng generate component app-components/router-pages/view
+  ng generate component app-components/ui/router-pages/dashboard
+  ng generate component app-components/ui/router-pages/view
 
 ##############################################################
 # Прикрепление URI к страницам роутера
@@ -47,7 +52,7 @@ PowerShell Admin: Set-ExecutionPolicy RemoteSigned
     BrowserModule,
     RouterModule.forRoot([
       { path: '', component: DashboardComponent },
-      { path: 'cards/:cardId', component: ViewComponent },
+      { path: 'congratulations/:congratulationId', component: ViewComponent },
     ])
   ],
 ...
