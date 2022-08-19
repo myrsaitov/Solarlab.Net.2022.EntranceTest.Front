@@ -1,0 +1,24 @@
+https://stackblitz.com/edit/virtual-scroll-multiple-columns
+
+В файле: app.module.ts
+
+@NgModule({
+  declarations: [
+    ...
+    AccountCardComponent,
+    ...
+  ],
+  imports: [
+    ...
+    VirtualScrollModule,
+    ...
+  ],
+  providers: [
+    {
+      provide: "Window",
+      useValue: window
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

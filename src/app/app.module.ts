@@ -12,7 +12,6 @@ import { RightColumnComponent } from './app-components/ui/right-column/right-col
 import {MatGridListModule} from "@angular/material/grid-list";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CongratulationCardComponent } from './app-components/ui/congratulation-card/congratulation-card.component';
-import {ScrollingModule} from "@angular/cdk/scrolling";
 import {AccountCardComponent} from "./app-components/tools/accountCard/accountCard.component";
 import {VirtualScrollModule} from "./app-components/tools/virtualScroll/virtualScroll.module";
 
@@ -39,7 +38,12 @@ import {VirtualScrollModule} from "./app-components/tools/virtualScroll/virtualS
     BrowserAnimationsModule,
     VirtualScrollModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: "Window",
+      useValue: window
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
