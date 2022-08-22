@@ -11,7 +11,7 @@ import { LeftColumnComponent } from './app-components/ui-elements/left-column/le
 import { RightColumnComponent } from './app-components/ui-elements/right-column/right-column.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {AccountCardComponent} from "./app-components/ui-elements/account-card/accountCard.component";
+import {CongratulationCardComponent} from "./app-components/ui-elements/congratulation-card/congratulation-card.component";
 import {VirtualScrollerModule} from "ngx-virtual-scroller";
 
 
@@ -24,7 +24,7 @@ import {VirtualScrollerModule} from "ngx-virtual-scroller";
     BottomBarComponent,
     LeftColumnComponent,
     RightColumnComponent,
-    AccountCardComponent
+    CongratulationCardComponent
   ],
     imports: [
         BrowserModule,

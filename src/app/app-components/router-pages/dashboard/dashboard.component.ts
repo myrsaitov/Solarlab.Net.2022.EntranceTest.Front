@@ -10,9 +10,13 @@ import {VirtualScrollerComponent} from "ngx-virtual-scroller";
 })
 export class DashboardComponent {
 
-  // Хранит размеры карточки
-  viewCardHeight: any;
-  viewCardWidth: any;
+  // Относительные размеры области Virtual Scroller
+  k_height = 0.7;
+  k_width = 0.5;
+
+  // Хранит размеры области Virtual Scroller
+  viewVirtualScrollerAreaHeight: any;
+  viewVirtualScrollerAreaWidth: any;
 
   congratulations = [...congratulations];
 
@@ -23,15 +27,15 @@ export class DashboardComponent {
 
   ngOnInit(){
     // Обновляет размеры карточки в соответсвии с размером экрана
-    this.viewCardHeight = window.innerHeight*0.7;
-    this.viewCardWidth = window.innerWidth*0.5;
+    this.viewVirtualScrollerAreaHeight = window.innerHeight*this.k_height;
+    this.viewVirtualScrollerAreaWidth = window.innerWidth*this.k_width;
   }
 
   // Обработка события изменения размера главного окна
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.viewCardHeight = event.target.innerHeight*0.7;
-    this.viewCardWidth = event.target.innerWidth*0.5;;
+    this.viewVirtualScrollerAreaHeight = event.target.innerHeight*this.k_height;
+    this.viewVirtualScrollerAreaWidth = event.target.innerWidth*this.k_width;
   }
 
   onVsUpdate(event) {

@@ -3,11 +3,11 @@
                   (vsChange)="onVsChange($event)"
                   (vsStart)="onVsStart($event)"
                   (vsEnd)="onVsEnd($event)"
-                  [style.height.px]="viewCardHeight"
-                  [style.width.px]="viewCardWidth">
+                  [style.height.px]="viewVirtualScrollerAreaHeight"
+                  [style.width.px]="viewVirtualScrollerAreaWidth">
 
   <div *ngFor="let item of scroll.viewPortItems">
-    <account-card [account]="item"> </account-card>
+    <congratulation-card [account]="item"> </congratulation-card>
   </div>
 
 </virtual-scroller>
