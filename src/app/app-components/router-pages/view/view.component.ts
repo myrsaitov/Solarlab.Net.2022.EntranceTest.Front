@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {congratulations, ICongratulation} from "../../../../interfaces/congratulation/icongratulation";
+import {congratulations, ICongratulation} from "../../../interfaces/congratulation/icongratulation";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

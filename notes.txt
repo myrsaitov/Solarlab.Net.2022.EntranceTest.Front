@@ -15,37 +15,38 @@ ng add @angular/cdk
 # Если ошибка: "Так как выполнение сценариев отключено в этой системе. Для получения дополнительных сведений см..."
   PowerShell Admin: Set-ExecutionPolicy RemoteSigned
 
-# Чтобы не было проверки на обязательное инициализирование переменных,
-# нужнол в файле tsconfig.json добавить:
+
+# Изменить файл tsconfig.json:
   "compilerOptions": {
     ...
+
+    // Чтобы не было проверки на обязательное инициализирование переменных
     "forceConsistentCasingInFileNames": true,
+
+    // Чтобы не было строгой проверки типа аргумента
+    "strict": false,
+
     ...
   }
+
+# Установка Virtual Scroller
+npm i ngx-virtual-scroller
 
 
 ##############################################################
 # Основные компоненты интерфейса
 # Вызываются в "app.component.html"
 ##############################################################
-  ng generate component app-components/ui/top-bar
-  ng generate component app-components/ui/bottom-bar
-  ng generate component app-components/ui/left-column
-  ng generate component app-components/ui/right-column
-  ng generate component app-components/ui/congratulation-card
-
-##############################################################
-# Компоненты инструментов
-##############################################################
-
-# https://stackblitz.com/edit/virtual-scroll-multiple-columns
-  ng generate component app-components/tools/virtual-scroll-bar
+  ng generate component app-components/ui-elements/top-bar
+  ng generate component app-components/ui-elements/bottom-bar
+  ng generate component app-components/ui-elements/left-column
+  ng generate component app-components/ui-elements/right-column
 
 ##############################################################
 # Страницы роутера
 ##############################################################
-  ng generate component app-components/ui/router-pages/dashboard
-  ng generate component app-components/ui/router-pages/view
+  ng generate component app-components/router-pages/dashboard
+  ng generate component app-components/router-pages/view
 
 ##############################################################
 # Прикрепление URI к страницам роутера

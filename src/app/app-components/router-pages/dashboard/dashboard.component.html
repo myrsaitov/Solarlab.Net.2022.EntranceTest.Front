@@ -1,0 +1,13 @@
+<virtual-scroller #scroll [items]="congratulations"
+                  (vsUpdate)="onVsUpdate($event)"
+                  (vsChange)="onVsChange($event)"
+                  (vsStart)="onVsStart($event)"
+                  (vsEnd)="onVsEnd($event)"
+                  [style.height.px]="viewCardHeight"
+                  [style.width.px]="viewCardWidth">
+
+  <div *ngFor="let item of scroll.viewPortItems">
+    <account-card [account]="item"> </account-card>
+  </div>
+
+</virtual-scroller>

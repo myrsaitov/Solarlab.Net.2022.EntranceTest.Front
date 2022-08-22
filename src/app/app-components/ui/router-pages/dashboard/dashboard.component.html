@@ -1,9 +1,0 @@
-<h2>Congratulation Cards</h2>
-
-<virtual-scroll [itemHeight]="125" [itemWidth]="250">
-  <div virtualScrollGrid *virtualFor="let _accounts in congratulations">
-    <ng-container *ngFor="let account of _accounts">
-      <account-card [account]="account"> </account-card>
-    </ng-container>
-  </div>
-</virtual-scroll>
