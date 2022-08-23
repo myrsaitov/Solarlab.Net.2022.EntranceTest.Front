@@ -10,7 +10,7 @@ import {VirtualScrollerComponent} from "ngx-virtual-scroller";
 export class LeftColumnComponent {
 
   // Относительные размеры области Virtual Scroller
-  k_height = 0.8;
+  k_height = 1;
   k_width = 0.2;
 
   // Хранит размеры области Virtual Scroller

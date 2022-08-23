@@ -11,7 +11,7 @@ import {VirtualScrollerComponent} from "ngx-virtual-scroller";
 export class DashboardComponent {
 
   // Относительные размеры области Virtual Scroller
-  k_height = 0.7;
+  k_height = 1;
   k_width = 0.5;
 
   // Хранит размеры области Virtual Scroller

@@ -1,20 +1,15 @@
 <div *ngIf="tags" class="col">
-  <ul>
-    <div>Поиск по тагам</div>
-  </ul>
-  <ul>
-    <virtual-scroller #scroll [items]="tags"
-                      (vsUpdate)="onVsUpdate($event)"
-                      (vsChange)="onVsChange($event)"
-                      (vsStart)="onVsStart($event)"
-                      (vsEnd)="onVsEnd($event)"
-                      [style.height.px]="viewVirtualScrollerAreaHeight"
-                      [style.width.px]="viewVirtualScrollerAreaWidth">
-    <div *ngFor="let tag of tags">
-      <a class="badge badge-secondary"
-         role="button">{{tag.body}}
-      </a>      &nbsp;&nbsp;
-    </div>
-    </virtual-scroller>
-  </ul>
+  <virtual-scroller #scroll [items]="tags"
+                    (vsUpdate)="onVsUpdate($event)"
+                    (vsChange)="onVsChange($event)"
+                    (vsStart)="onVsStart($event)"
+                    (vsEnd)="onVsEnd($event)"
+                    [style.height.px]="viewVirtualScrollerAreaHeight"
+                    [style.width.px]="viewVirtualScrollerAreaWidth">
+  <div *ngFor="let tag of tags">
+    <a class="badge badge-secondary"
+       role="button">{{tag.body}}
+    </a>      &nbsp;&nbsp;
+  </div>
+  </virtual-scroller>
 </div>
