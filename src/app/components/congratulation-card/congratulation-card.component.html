@@ -1,0 +1,48 @@
+<!-- Карточка поздравления (начало) -->
+<div class="card" style="width: 14rem;" *ngIf="congratulation">
+
+  <!-- Картинка поздравления (начало) -->
+  <div class="card-body" style="width: 14rem; height: 12rem;">
+    <a routerLink="{{congratulation.id}}">
+      <img [src]="defaultImageUri"
+        alt="userFilesSlides" 
+        draggable="false"
+        (dragstart)="false;" 
+        class="unselectable"
+        style="cursor: pointer;
+          background-color: PowderBlue;
+          color: Black;
+          border-style: double;
+          border: 2px solid blue;
+          border-radius: 5px;
+          width: 190px;
+          height: 190px;
+          object-fit: cover;">
+    </a>
+  </div>
+  <!-- Картинка поздравления (конец) -->
+
+  <!-- Футтер (начало) -->
+  <div class="card-header"
+    style="width: 14rem; height: 7rem;">
+    <br>
+    <h6>
+      
+      <!-- Стоимость -->
+      <div class="badge badge-secondary"
+        *ngIf="congratulation?.price">
+        <b>{{congratulation.price}}&nbsp;&#8381;</b>
+      </div>
+      <!-- Заголовок поздравления -->
+      <h6 class="card-title font-weight-bold">
+        {{congratulation.title.substring(0,20)}}
+      </h6>
+      <!-- Регион -->
+      <small>{{regionName}}</small>
+    </h6>
+
+  </div>
+  <!-- Футтер (конец) -->
+
+</div>
+<!-- Карточка поздравления (конец) -->

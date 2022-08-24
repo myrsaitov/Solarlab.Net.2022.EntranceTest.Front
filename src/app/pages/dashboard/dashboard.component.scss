@@ -1,0 +1,13 @@
+.category-badges {
+  display: flex;
+  margin: 0 -7px;
+  padding-top: 7px;
+  margin-bottom: 14px;
+  .badge {
+    margin: 0 7px 7px;
+  }
+}
+.justify-content-center {
+  display: flex !important;
+  justify-content: center !important;
+}

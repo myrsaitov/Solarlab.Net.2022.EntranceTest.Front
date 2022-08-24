@@ -1,0 +1,152 @@
+<!-- "container": ограничивает ширину дочернего контента -->
+<div class="container">
+
+  <!-- Строка (начало) -->
+  <div class="row">
+
+    <!-- Выдача категорий слева колонкой -->
+    <!-- Колонка 1 (начало) -->
+    <div *ngIf="categoryService.categories$ | async as categories" class="col-3">
+      <ul>
+        <div>Поиск по категориям</div>
+      </ul>
+      <ul>
+        <div *ngFor="let category of categories">
+          <!-- Группы категорий -->
+          <h5 *ngIf="!category.parentCategoryId"><br><br>{{category.name}}</h5>
+          <!-- Подкатегории -->
+          <a class="badge badge-secondary"
+            *ngIf="category.parentCategoryId"
+            role="button"
+            (click)="router.getCongratulationsByCategoryId(category.id)">{{category.name}}({{category.count}})
+          </a>
+          &nbsp;&nbsp;
+        </div>
+      </ul>
+    </div>
+    <!-- Колонка 1 (конец) -->
+
+    <!-- *****************************************************************************
+        *****************************************************************************-->
+
+    <!-- Колонка 2 (начало) -->
+    <div class="col">
+
+      <!-- "Добавить поздравление", выводится, если пользователь авторизирован -->
+      <!-- Строка -->
+      <div class="row">
+        <div class="col-12 d-flex" *ngIf="isAuth">
+          <a [routerLink]="['/create']" class="btn btn-primary ml-auto">
+            <svg class="bi bi-plus" width="24" height="24" viewBox="0 0 16 16" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z"
+                clip-rule="evenodd"/>
+              <path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
+                clip-rule="evenodd"/>
+            </svg>
+            Добавить поздравление
+          </a>
+        </div>
+      </div>
+      <!-- Конец строки -->
+
+      <!-- Заголовок -->
+      <!-- Строка -->
+      <div class="row">
+        <div class="col-12">
+          <h2>Поздравления</h2>
+        </div>
+      </div>
+      <!-- Конец строки -->
+
+      <!-- Выводит переключение страниц пажинации поздравлений -->
+      <!-- Строка -->
+      <div class="row">
+        <div class="col-12  justify-content-center"
+          *ngIf="response$ | async as response; else loadingBlock">
+          <div *ngIf="response.total > congratulationsFilter.pageSize">
+            <ngb-pagination
+              [page]="congratulationsFilter.page"
+              (pageChange)="updateCongratulationsFilterPage($event)"
+              [pageSize]="congratulationsFilter.pageSize"
+              [collectionSize]="response.total">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <!-- Конец строки -->
+
+      <!-- Выводит пажинированные карточки поздравлений -->
+      <!-- Строка -->
+      <div class="row mb-2" *ngIf="response$ | async as response; else loadingBlock">
+        <ng-container *ngFor="let item of response.items">
+          <app-congratulation-card
+            class="col-sm-4 mb-4"
+            [congratulation]="item"
+            [defaultImageUri]="getUserFileUriById(item.userFiles[0])"
+            [regionName]="regionService.getRegionNameById(item.regionId)">
+          </app-congratulation-card>
+        </ng-container>
+      </div>
+      <!-- Конец строки -->
+
+      <!-- Выводит переключение страниц пажинации поздравлений -->
+      <!-- Строка -->
+      <div class="row">
+        <div class="col-12
+          justify-content-center"
+          *ngIf="response$ | async as response; else loadingBlock">
+          <div *ngIf="response.total > congratulationsFilter.pageSize">
+            <ngb-pagination
+              [page]="congratulationsFilter.page"
+              (pageChange)="updateCongratulationsFilterPage($event)"
+              [pageSize]="congratulationsFilter.pageSize"
+              [collectionSize]="response.total">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <!-- Конец строки -->
+
+    </div>
+    <!-- Колонка 2 (конец) -->
+
+    <!-- *****************************************************************************
+        *****************************************************************************-->
+
+    <!-- Выдача тагов справа колонкой -->
+    <!-- Колонка 3 (начало) -->
+    <div *ngIf="tagService.tags$ | async as tags" class="col-1">
+      <ul>
+        <div>Поиск по тагам</div>
+      </ul>
+      <ul>
+        <div *ngFor="let tag of tags">
+          <a class="badge badge-secondary"
+            role="button"
+            (click)="router.getCongratulationsByTag(tag.body)">{{tag.body}}({{tag.count}})
+          </a>
+          &nbsp;&nbsp;
+        </div>
+      </ul>
+    </div>
+    <!-- Колонка 3 (конец) -->
+
+  </div>
+  <!-- Строка (конец) -->
+
+</div>
+<!-- "container" (конец) -->
+
+<!-- Шаблоны:
+  https://angular.io/api/core/ng-template#description
+  With <ng-template>, you can define
+  template content that is only being rendered
+  by Angular when you, whether directly or indirectly,
+  specifically instruct it to do so, allowing you to
+  have full control over how and when the content is displayed. -->
+
+<!-- Выводится, если нет связи с сервисом -->
+<ng-template #loadingBlock>
+  Загрузка...
+</ng-template>

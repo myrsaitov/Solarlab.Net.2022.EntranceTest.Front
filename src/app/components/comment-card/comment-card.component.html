@@ -1,0 +1,35 @@
+<ng-container [formGroup]="form">
+<div class="card card-">
+  <div class="card-header">
+    <!-- "container": ограничивает ширину дочернего контента -->
+    <div class="container">
+      <div class="row">
+        <div class="col-2">
+          <h6>  Пользователь:<br>
+            <a class="badge badge-secondary" *ngIf="comment?.ownerId" role="button" (click)="router.getCongratulationsByUserId(comment.ownerId)">{{comment.ownerId}}</a>
+            <a *ngIf="comment?.ownerId" role="button" (click)="router.getCongratulationsByUserId(comment.ownerId)"><img src="/api/v1/userpics/{{comment.ownerId}}" width="100" height="100"></a>
+          </h6>
+        </div>
+        <div class="col">
+          <div class="card-header">
+            <div class="badge badge-secondary" *ngIf="comment?.createdAt">
+              {{comment.createdAt}}
+            </div>
+            <div class="card-body">
+              <a>{{comment.body}}</a>
+            </div>
+           </div>
+        </div>
+        <div class="col-1">
+          <div class="row">
+            
+          </div>
+          <div class="row">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>

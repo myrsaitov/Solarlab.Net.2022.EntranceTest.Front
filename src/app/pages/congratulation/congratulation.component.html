@@ -1,0 +1,399 @@
+<!-- "container": ограничивает ширину дочернего контента -->
+<div class="container" *ngIf="congratulation; else loadingBlock">
+
+  <!-- Строка (начало) -->
+  <div class="row">
+
+    <!-- Выдача категорий слева колонкой -->
+    <!-- Колонка 1 (начало) -->
+    <div *ngIf="categoryService.categories$ | async as categories" class="col-3">  
+      <ul>
+        <div>Поиск по категориям</div>
+      </ul>
+      <ul>  
+        <div *ngFor="let category of categories">
+          <!-- Группы категорий -->
+          <h5 *ngIf="!category.parentCategoryId"><br><br>{{category.name}}</h5>
+          <!-- Подкатегории -->
+          <a class="badge badge-secondary" 
+            *ngIf="category.parentCategoryId"
+            role="button" 
+            (click)="router.getCongratulationsByCategoryId(category.id)">{{category.name}}({{category.count}})
+          </a>
+          &nbsp;&nbsp;
+        </div>
+      </ul>
+    </div>
+    <!-- Колонка 1 (конец) -->
+
+    <!-- *****************************************************************************
+        *****************************************************************************-->
+
+    <!-- Колонка 2 (начало) -->
+    <div class="col">
+
+      <!-- Выводит подробную информацию по поздравлению (начало) -->
+      <ng-container [formGroup]="congratulationForm">
+        <article class="card" style="width: 43rem;">
+          
+          <!-- Заголовок карточки (начало) -->
+          <div class="card-header d-flex"><!-- https://getbootstrap.com/docs/4.2/components/card/ -->
+
+            <!-- Заголовок поздравления -->
+            <div>
+              <h1 class="h1">{{congratulation.title}}</h1>
+              <b>{{congratulation.price}}&nbsp;&#8381;</b>
+              <a class="badge badge-secondary"
+                *ngIf="congratulation.categoryId"
+                role="button"
+                (click)="router.getCongratulationsByCategoryId(congratulation.categoryId)">{{categoryService.getCategoryNameById(congratulation.categoryId)}}</a>
+              <a *ngFor="let tag of congratulation.tags">&nbsp;&nbsp;<a class="badge badge-secondary" role="button" (click)="router.getCongratulationsByTag(tag)">{{tag}}</a></a>
+            </div>
+
+            <!-- Кнопки "Редактировать" и "Удалить", а также "Статус" -->
+            <div class="align-self-center ml-auto" *ngIf="isAuth">
+
+              <a class="btn btn-outline-secondary mr-2"
+                [routerLink]="['/edit', congratulation.id]"
+                *ngIf="isEditable">Редактировать</a>
+
+              <div class="form-group">
+                <label for="status">Статус:</label>
+                <select class="form-control custom-select"
+                  id="status"
+                  formControlName="status"
+                  autofocus
+                  (change)="onChange($event.target.value)"
+                  value = "0">
+                  <option [value]="0">Активно</option>
+                  <option [value]="1">Приостановлено</option>
+                  <option [value]="2">Черновик</option>
+                  <option [value]="3">Удалено</option>
+                  <option [value]="4">Недопустимое содержание</option>
+                </select>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- Заголовок карточки (конец) -->
+
+          <!-- Подзаголовок карточки (начало) -->
+          <div class="card-header d-flex">
+
+            <!-- Категория поздравления -->
+            <ng-container *ngIf="categoryService?.categories">
+              <p *ngIf="congratulation?.categoryId">
+                Категория поздравления: 
+                <a class="badge badge-secondary" 
+                  role="button" 
+                  (click)="router.getCongratulationsByCategoryId(congratulation.categoryId)">
+                  {{categoryService.getCategoryNameById(congratulation.categoryId)}}
+                </a>
+              </p>
+            </ng-container>
+
+          </div>
+          <!-- Подзаголовок карточки (конец) -->
+
+          <!-- Тело карточки (начало) -->
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+
+              <!-- Если существуют файлы к поздравлению (начало) -->
+              <ng-container *ngIf="getUserFilesExists()">
+
+                <!-- ng-image-fullscreen-view https://morioh.com/p/6bd2fa8478c4 -->
+                <ng-image-fullscreen-view
+                  [images]="imageObject"
+                  [imageIndex]="currentIndex"
+                  [show]="showFlag"
+                  [infinite]="true"
+                  [paginationShow]="true"
+                  [arrowKeyMove]="true"
+                  (close)="closeEventHandler()">
+                </ng-image-fullscreen-view>
+
+                <!-- Карусель файлов (начало) -->
+                <p><br></p>
+                <div id="carouselExampleControls"
+                  class="carousel slide"
+                  data-ride="carousel"
+                  style="text-align:center">
+                  <ng-container *ngIf="userFilesCount>1">
+                    <button (click)='getUserFilesPrevSlide()'>Предыдущий</button>
+                    ({{userFilesSlidesIndex + 1}})
+                    <button (click)='getUserFilesNextSlide()'>Следующий</button>
+                  </ng-container>
+                  <div class="carousel-inner" role="listbox">
+                    <div class="gallery2"
+                      style="overflow: hidden;
+                        width: 640px;">
+                      <div class="center"
+                        style="float: left;
+                          margin-right: 10px;
+                          margin-bottom: 10px;
+                          width: 640px;
+                          height: 480px;
+                          overflow: hidden;">
+                        <img src="{{ getUserFilesSlide() }}" alt="userFilesSlides" 
+                          (click)="showLightbox()"
+                          (mousedown)="userFilesMouseDown()"
+                          (mouseup)="userFilesMouseUp()"
+                          (mouseleave)="userFilesMouseUp()"
+                          draggable="false"
+                          (dragstart)="false;" 
+                          class="unselectable"
+                          style="cursor: pointer;
+                            background-color: PowderBlue;
+                            color: Black;
+                            border-style: double;
+                            border: 2px solid blue;
+                            border-radius: 5px;
+                            width: 640px;
+                            height: 480px;
+                            object-fit: cover;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Карусель файлов (конец) -->
+
+                <!-- Превью файлов (начало) -->
+                <ng-container *ngIf="userFilesCount>1">
+                  <p><br></p>
+                  <div class="row">
+                    <ng-container *ngFor="let fileId of congratulation.userFiles; let i = index">
+                      <div class="col-3">
+                        <div class="gallery1">
+                          <div class="ramka1">
+                            <!-- Если файл не выбран -->
+                            <img *ngIf="!getUserFilesSlideSelectedStatus(i)"
+                              [src]="getUserFileUriById(fileId)"
+                              style="cursor: pointer;
+                                background-color: PowderBlue;
+                                color: Black;
+                                border-style: double;
+                                border: 2px solid blue;
+                                border-radius: 5px;" 
+                              (click)="getUserFilesThisSlide(i)"
+                              draggable="false"
+                              (dragstart)="false;" 
+                              class="unselectable">
+
+                            <!-- Если файл выбран -->
+                            <img *ngIf="getUserFilesSlideSelectedStatus(i)"
+                              class="w-100"
+                              [src]="getUserFileUriById(fileId)"
+                              style="cursor: pointer;
+                                background-color: PowderBlue;
+                                color: Black;
+                                border-style: double;
+                                border: 5px solid greenyellow;
+                                border-radius: 1px;" 
+                              (click)='getUserFilesThisSlide(i)'>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+              </ng-container>
+                <!-- Превью файлов (конец) -->
+              
+              </ng-container>
+              <!-- Если существуют файлы к поздравлению (конец) -->
+
+              <!-- Текст поздравления -->
+              <li class="list-group-item">
+                <p class="card-text">
+                  {{congratulation.body}}
+                </p>
+              </li>
+
+              <!-- Владелец поздравления и время создания поздравления -->
+              <li class="list-group-item">
+                <p class="card-text">
+                  Добавлено пользователем:
+                  <a class="badge badge-secondary"
+                    *ngIf="congratulation?.ownerId"
+                    role="button"
+                    (click)="router.getCongratulationsByUserId(congratulation.ownerId)">
+                    {{userService.user?.userName}}&nbsp;&nbsp;
+                  </a>
+                  <a *ngIf="congratulation?.createdAt">
+                    {{congratulation.createdAt}}
+                  </a>
+                </p>
+              </li>
+
+              <!-- Стоимость -->
+              <li class="list-group-item">
+                <p class="card-text" *ngIf="congratulation?.price">
+                  Стоимость: {{congratulation.price}}&nbsp;&#8381;
+                </p>
+              </li>
+
+              <!-- Адрес -->
+              <li class="list-group-item">
+                <p class="card-text" *ngIf="congratulation?.address">
+                  Адрес: {{congratulation.address}}&nbsp;
+                </p>
+              </li>
+
+              <!-- Регион -->
+              <li class="list-group-item">
+                <p class="card-text" *ngIf="regionService.regions">
+                  Регион: {{regionService.getRegionNameById(congratulation.regionId)}}
+                </p>
+              </li>
+
+              <!-- Статус поздравления -->
+              <li class="list-group-item">
+                <p class="card-text" *ngIf="congratulationStatus">
+                  Статус поздравления: {{congratulationStatus}}
+                </p>
+              </li>
+
+            </ul>
+
+          </div>
+          <!-- Тело карточки (конец) -->
+
+          <!-- Футтер карточки (начало) -->
+          <div class="card-header d-flex">
+            
+            <!-- Кнопка "Купить" -->
+            <a routerLink="/" class="btn btn-primary">Купить</a>
+ 
+           </div>
+          <!-- Футтер карточки (конец) -->
+
+        </article>
+
+
+
+        <!-- Форма отправки комментария (начало) -->
+        <!--<div class="form-group">
+          <label for="commentBody">Добавить комментарий</label>
+          <textarea class="form-control"
+            id="commentBody"
+            formControlName="commentBody"
+            placeholder="Введите комментарий"
+            autofocus>
+          </textarea>
+        </div>
+        <button type="submit"
+          class="btn btn-primary"
+          (click)="submit()">Добавить</button>
+        <!-- Форма отправки комментария (конец) -->
+
+
+      </ng-container>
+      <!-- Выводит подробную информацию по поздравлению (конец) -->
+
+
+
+      <!-- Выводит переключение страниц пажинации комментариев (начало) -->
+      <!--<div class="row">
+        <div class="col-12 justify-content-center"
+          *ngIf="response$ | async as response; else loadingBlock">
+          <div *ngIf="response.total > commentsFilter.pageSize">
+            <ngb-pagination
+              [page]="commentsFilter.page"
+              (pageChange)="updateCommentsFilterPage($event)"
+              [pageSize]="commentsFilter.pageSize"
+              [collectionSize]="response.total">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <!-- Выводит переключение страниц пажинации комментариев (конец) -->
+
+      <!-- Выводит пажинированные комментарии (начало) -->
+      <!--<div class="row" *ngIf="response$ | async as response; else loadingBlock">
+        <div class="col">
+          <ng-container *ngFor="let item of response.items">
+            <app-comment-card
+              class="col-sm-4 mb-4"
+              [comment]="item">
+            </app-comment-card>
+          </ng-container>
+        </div>
+      </div>
+      <!-- Выводит пажинированные комментарии (конец) -->
+
+      <!-- Выводит переключение страниц пажинации комментариев (начало) -->
+      <!--<div class="row">
+        <div class="col-12 justify-content-center"
+          *ngIf="response$ | async as response; else loadingBlock">
+          <div *ngIf="response.total > commentsFilter.pageSize">
+            <ngb-pagination
+              [page]="commentsFilter.page"
+              (pageChange)="updateCommentsFilterPage($event)"
+              [pageSize]="commentsFilter.pageSize"
+              [collectionSize]="response.total">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <!-- Выводит переключение страниц пажинации комментариев (конец) -->
+
+    </div>
+    <!-- Колонка 2 (конец) -->
+
+    <!-- *****************************************************************************
+        *****************************************************************************-->
+
+    <!-- Выдача тагов справа колонкой -->
+    <!-- Колонка 3 (начало) -->
+    <div *ngIf="tagService.tags$ | async as tags" class="col-1">  
+      <ul>
+        <div>Поиск по тагам</div>
+      </ul>
+      <ul>  
+        <div *ngFor="let tag of tags">
+          <a class="badge badge-secondary" 
+            role="button" 
+            (click)="router.getCongratulationsByTag(tag.body)">{{tag.body}}({{tag.count}})
+          </a>
+          &nbsp;&nbsp;
+        </div>
+      </ul>
+    </div>
+    <!-- Колонка 3 (конец) -->
+
+  </div>
+  <!-- Строка (начало) -->
+
+</div>
+<!-- "container" (конец) -->
+
+<!-- Шаблоны:
+  https://angular.io/api/core/ng-template#description
+  With <ng-template>, you can define 
+  template content that is only being rendered 
+  by Angular when you, whether directly or indirectly, 
+  specifically instruct it to do so, allowing you to 
+  have full control over how and when the content is displayed. -->
+
+<!-- Выводится, если нет связи с сервисом комментариев -->
+<ng-template #loadingBlock>
+  <!-- "container": ограничивает ширину дочернего контента -->
+  <div class="container">
+    Загрузка...
+  </div>
+</ng-template>
+
+<!-- Выводится, когда нажали на "Удалить поздравление" -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Вы дейстивтельно хотите удалить Поздравление?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-link" (click)="c('Close Click')">Отмена</button>
+    <button type="button" class="btn btn-danger" (click)="delete(congratulation.id); c('Delete click')">Удалить</button>
+  </div>
+</ng-template>

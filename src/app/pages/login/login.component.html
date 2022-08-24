@@ -1,0 +1,53 @@
+<div class="form-login">
+  <style>
+    .colortext
+    {
+      color: red; /* Красный цвет выделения */
+    }
+  </style>
+
+  <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
+  <div *ngIf="notloginedstatus">
+       <p><span class="colortext">Ошибка аутентификации!</span></p>
+     </div>
+  <ng-container [formGroup]="loginForm">
+    
+    <!-- E-mail -->
+    <label for="inputEMail"
+      class="sr-only">eMail</label>
+    <input formControlName="eMail" 
+      [class.is-invalid]="eMail.invalid && eMail.touched"
+      type="text"
+      id="inputEMail"
+      class="form-control"
+      placeholder="e-mail"
+      required
+      autofocus>
+
+    <!-- Пароль -->
+    <label for="inputPassword"
+      class="sr-only">Пароль</label>
+    <input formControlName="password"
+      [class.is-invalid]="password.invalid && password.touched"
+      [type]="passwordHide ? 'password' : 'text'" id="inputPassword"
+      id="inputPassword"
+      class="form-control mb-3"
+      placeholder="Пароль"
+      required>
+
+    <!-- Элемент для переключения видимости пароля -->
+    <input type="checkbox" [value]="passwordHide" (change)="onCheckboxChange($event)" /> Показать пароль
+
+    <!-- Кнопка входа -->
+    <button class="btn btn-lg btn-primary btn-block" (click)="submit()">Войти</button>
+
+    <p>[alex_1] user1@mail.ru:Zuse123!@#$%^()1</p>
+    <p>[sidorov_2] user2@mail.ru:Zuse123!@#$%^()2</p>
+    <p>[ivanov_3] user3@mail.ru:Zuse123!@#$%^()3</p>
+    <p>[vas_andr_4] user4@mail.ru:Zuse123!@#$%^()4</p>
+    <p>[petr_ivanov_5] user5@mail.ru:Zuse123!@#$%^()5</p>
+    <p>moderator@mail.ru:Zadm123!@#$%^()</p>
+    <p>administrator@mail.ru:Zadm123!@#$%^()</p>
+
+  </ng-container>
+</div>

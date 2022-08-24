@@ -1,0 +1,74 @@
+<!-- <nav> задает навигацию по сайту. 
+  Если на странице несколько блоков ссылок, 
+  то в <nav> обычно помещают приоритетные ссылки. 
+  Также допустимо использовать несколько тегов <nav> в документе-->
+<nav class="navbar navbar-expand navbar-dark bg-dark mb-4 d-flex">
+  
+  <!-- Выводит логотип -->
+  <a class="navbar-brand"
+    role="button" (click)="router.goToMainPage()">Поздравлятор</a>
+
+  <ul class="nav nav-pills ml-auto">
+
+    <!-- Если пользователь авторизирован, то выводится "Выход" и картинка пользователя,
+      иначе "Вход" и "Регистрация" -->
+    <ng-container *ngIf="!(isAuth$ | async); else authenticated">
+      <li class="nav-item">
+        <a class="nav-link"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           routerLink="/login">Вход</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           routerLink="/signup">Регистрация</a>
+      </li>
+    </ng-container>
+
+    <!-- Поиск по строке -->
+    <ng-container [formGroup]="form">
+      <div class="form-group">
+        <input type="text"
+          class="form-control"
+          (keydown.enter)="onKeyDownEnter($event)"
+          id="searchStr"
+          formControlName="searchStr"
+          placeholder="Поиск"
+          autofocus>&nbsp;&nbsp;
+      </div>
+    </ng-container>
+
+<!-- Шаблоны:
+  https://angular.io/api/core/ng-template#description
+  With <ng-template>, you can define 
+  template content that is only being rendered 
+  by Angular when you, whether directly or indirectly, 
+  specifically instruct it to do so, allowing you to 
+  have full control over how and when the content is displayed. -->
+
+<!-- Выводится, если пользователь авторизирован -->
+    <ng-template #authenticated>
+      <li class="nav-item">
+        <button class="btn btn-outline-primary"
+          (click)="logout()">Выход
+        </button>
+        <h4>Вы вошли под именем: 
+          <span class="badge badge-secondary"
+            *ngIf="userName"
+            role="button"
+            (click)="router.getCongratulationsByUserId(userName)">{{userName()}}</span>&nbsp;&nbsp;
+        </h4>
+      </li>
+      <!-- Картинка пользователя, вход в личный кабинет -->
+      <!--<a *ngIf="userName" role="button" (click)="router.getCongratulationsByUserId(userName)"><img src="/api/v1/userpics/{{userName()}}" width="100" height="100">&nbsp;&nbsp;</a>-->
+      <a *ngIf="userName"
+        role="button"
+        (click)="router.getCongratulationsByUserId(userName)">
+        <img src="https://www.seekpng.com/png/full/847-8474751_download-empty-profile.png"
+          width="100"
+          height="100">&nbsp;&nbsp;</a>
+    </ng-template>
+  </ul>
+</nav>

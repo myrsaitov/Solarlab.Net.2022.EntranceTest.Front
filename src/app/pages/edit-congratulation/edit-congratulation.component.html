@@ -1,0 +1,245 @@
+<!-- "container": ограничивает ширину дочернего контента -->
+<div class="container">
+
+  <!-- Строка (начало) -->
+  <div class="row">
+
+    <!-- Выдача категорий слева колонкой -->
+    <!-- Колонка 1 (начало) -->
+    <div *ngIf="categoryService.categories$ | async as categories" class="col-3">  
+      <ul>
+        <div>Поиск по категориям</div>
+      </ul>
+      <ul>  
+        <div *ngFor="let category of categories">
+          <!-- Группы категорий -->
+          <h5 *ngIf="!category.parentCategoryId"><br><br>{{category.name}}</h5>
+          <!-- Подкатегории -->
+          <a class="badge badge-secondary" 
+            *ngIf="category.parentCategoryId"
+            role="button" 
+            (click)="router.getCongratulationsByCategoryId(category.id)">{{category.name}}({{category.count}})
+          </a>
+          &nbsp;&nbsp;
+        </div>
+      </ul>
+    </div>
+    <!-- Колонка 1 (конец) -->
+
+    <!-- *****************************************************************************
+        *****************************************************************************-->
+
+    <!-- Колонка 2 (начало) -->
+    <div class="col">
+
+      <div class="card">
+        <div class="card-body">
+          <h1 class="mb-4">Редактировать поздравление</h1>
+          <ng-container [formGroup]="form">
+
+            <!-- Название поздравления -->
+            <div class="form-group">
+              <label for="title">Название</label>
+              <input type="text"
+                class="form-control"
+                id="title"
+                formControlName="title"
+                placeholder="Введите название"
+                autofocus
+                [class.is-invalid]="title.invalid">
+            </div>
+
+            <!-- Файлы -->
+            <input 
+              type="file"
+              name="uploadfile"
+              id="uploadfile"
+              style="display:none;"
+              class="file-upload"
+              (change)="onFileSelected($event)"
+              multiple>
+            <label style="cursor: pointer;
+                          background-color: PowderBlue;
+                          color: Black;
+                          border-style: double;
+                          border: 2px solid blue;
+                          border-radius: 5px;" 
+              for="uploadfile">&nbsp;&nbsp;Выберите файлы до 10 Мб каждый&nbsp;&nbsp;</label>
+            
+            <!-- Превью файлов -->
+            <p><br></p>
+            <div class="row">
+              <ng-container *ngFor="let image of thumbnailImages">
+                <div class="col-3">
+                  <button type="submit"
+                    class="close"
+                    (click)="onFileDeleteFromForm(image.id)">
+                    <span>&times;</span>
+                  </button>
+                  <img class="w-100" [src]="image.uri">
+                </div>
+              </ng-container>
+            </div>
+
+            <!-- Текст поздравления -->
+            <div class="form-group">
+              <label for="body">Описание</label>
+              <textarea
+                class="form-control"
+                id="body"
+                formControlName="body"
+                placeholder="Введите описание"
+                autofocus
+                [class.is-invalid]="body.invalid"
+                rows="8">
+              </textarea>
+            </div>
+
+            <!-- Цена -->
+            <div class="form-group">
+              <label for="price">Цена, &#8381;</label>
+              <input type="text"
+                class="form-control"
+                id="price"
+                formControlName="price"
+                placeholder="Введите цену"
+                autofocus
+                [class.is-invalid]="price.invalid"
+                rows="1">
+            </div>
+
+            <!-- Категория -->
+            <div class="form-group">
+              <label for="categoryId">Категория</label>
+              <select class="form-control custom-select"
+                id="categoryId"
+                formControlName="categoryId"
+                autofocus
+                [class.is-invalid]="categoryId.invalid"
+                *ngIf="categoryService.categories$ | async as categories">
+                <option [value]="null">Выберите категорию</option>
+                <ng-container *ngFor="let category of categories">
+                  <optgroup *ngIf="!category.parentCategoryId" 
+                    label= "{{category.name}}">
+                    <ng-container *ngFor="let subcat of categories">
+                      <option *ngIf="subcat.parentCategoryId == category.id"
+                        [value]="subcat.id">{{subcat.name}}</option>
+                    </ng-container>
+                  </optgroup>
+                </ng-container>
+              </select>
+            </div>
+
+            <!-- Регион -->
+            <div class="form-group">
+              <label for="regionId">Регион</label>
+              <select class="form-control custom-select"
+                id="regionId"
+                formControlName="regionId"
+                autofocus
+                [class.is-invalid]="regionId.invalid"
+                *ngIf="regionService.regions$ | async as regions">
+                <option [value]="null">Выберите регион</option>
+                <ng-container *ngFor="let region of regions">
+                  <optgroup *ngIf="region.parentRegionId==1" 
+                    label= "{{region.name}}">
+                    <ng-container *ngFor="let subreg of regions">
+                      <ng-container *ngIf="subreg.parentRegionId > 1">
+                        <option *ngIf="subreg.parentRegionId == region.id"
+                          [value]="subreg.id">{{subreg.name}}</option>
+                      </ng-container>
+                    </ng-container>
+                  </optgroup>
+                </ng-container>
+                <option *ngFor="let region of regions"
+                  [value]="region.id">{{region.name}}</option>
+              </select>
+            </div>
+
+            <!-- Адрес -->
+            <div class="form-group">
+              <label for="address">Адрес</label>
+              <input type="text"
+                class="form-control"
+                id="address"
+                formControlName="address"
+                placeholder="Введите адрес"
+                autofocus
+                [class.is-invalid]="address.invalid">
+            </div>
+
+            <!-- Таги -->
+            <div class="form-group">
+              <label for="input_tags">Введите тэги</label>
+              <input type="text"
+                class="form-control"
+                id="input_tags"
+                formControlName="input_tags"
+                placeholder="Введите тэги"
+                autofocus
+                [class.is-invalid]="input_tags.invalid">
+            </div>
+
+            <!-- Статус поздравления -->
+            <div class="form-group">
+              <label for="status">Статус поздравления</label>
+              <select class="form-control custom-select"
+                id="status"
+                formControlName="status"
+                autofocus
+                [class.is-invalid]="status.invalid">
+                <option [value]="0">Активно</option>
+                <option [value]="1">Приостановлено</option>
+                <option [value]="2">Черновик</option>
+                <option [value]="3">Удалено</option>
+              <!--<option [value]="4">Недопустимое содержание</option>-->
+              </select>
+            </div>
+
+            <!-- Кнопка "Сохранить" -->
+            <button type="submit"
+              class="btn btn-primary mr-2"
+              [disabled]="form.invalid"
+              (click)="submit()">
+              Сохранить
+            </button>
+            
+            <!-- Кнопка "Отмена" -->
+            <a [routerLink]="['/',congratulationId$ | async]"
+              class="btn btn-outline-secondary">
+              Отмена
+            </a>
+
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+    <!-- Колонка 2 (конец) -->
+
+    <!-- *****************************************************************************
+    *****************************************************************************-->
+
+    <!-- Выдача тагов справа колонкой -->
+    <!-- Колонка 3 (начало) -->
+    <div *ngIf="tagService.tags$ | async as tags" class="col-1">  
+      <ul>
+        <div>Поиск по тагам</div>
+      </ul>
+      <ul>  
+        <div *ngFor="let tag of tags">
+          <a class="badge badge-secondary" 
+            role="button" 
+            (click)="router.getCongratulationsByTag(tag.body)">{{tag.body}}({{tag.count}})
+          </a>
+          &nbsp;&nbsp;
+        </div>
+      </ul>
+    </div>
+    <!-- Колонка 3 (конец) -->
+
+  </div>
+  <!-- Строка (начало) -->
+
+</div>
+<!-- "container" (конец) -->

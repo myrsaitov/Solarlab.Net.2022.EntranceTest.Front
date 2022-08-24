@@ -1,65 +1,11 @@
-<mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Поздравлятор</span>
-  <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button
-          class="example-icon"
-          aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
-</mat-toolbar>
-<!---------------------------------------------------------------------->
-<!-- Сетка -->
-<!---------------------------------------------------------------------->
-<div class="basic-container">
-
-  <mat-grid-list
-    cols="10"
-    rowHeight="4:3"
-    gutterSize="0px">
-
-    <!---------------------------------------------------------------------->
-    <!-- Колонки -->
-    <!---------------------------------------------------------------------->
-
-    <!-- Левая колонка 20% -->
-    <mat-grid-tile
-      id="left-sidebar"
-      colspan='2'
-      rowspan='7'>
-      <app-left-column>
-      </app-left-column>
-    </mat-grid-tile>
-
-    <!-- Средняя колонка 60% -->
-    <mat-grid-tile
-      id="main-content"
-      colspan='6'
-      rowspan='7'>
-      <!-- Роутер -->
-      <router-outlet></router-outlet>
-
-    </mat-grid-tile>
-
-    <!-- Правая колонка 20% -->
-    <mat-grid-tile
-      id="right-sidebar"
-      colspan='2'
-      rowspan='7'>
-      <app-right-column></app-right-column>
-    </mat-grid-tile>
-
-  </mat-grid-list>
-
+<div class="wrapper">
+  <div class="content">
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="footer">
+    <app-footer></app-footer>
+  </div>
 </div>
+<app-toasts></app-toasts>
+<ng-progress class="root-progress-bar" [thick]="true" [meteor]="false" [spinner]="false"></ng-progress>

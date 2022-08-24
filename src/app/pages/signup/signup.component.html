@@ -1,0 +1,190 @@
+<form [formGroup]="signupForm">
+  <style>
+    .colortext {
+      color: red; /* Красный цвет выделения */
+    }
+  </style>
+
+  <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+  
+  <!-- Сообщение об ошибке регистрации -->
+  <div class="form-group">
+    <div *ngIf="notregisterstatus">
+      <p><span class="colortext">Ошибка регистрации! Введите другой e-mail!</span></p>
+    </div>
+  </div>
+
+  <!-- E-mail -->
+  <div class="form-group">
+    <label for="inputEMail">E-Mail</label>
+    <input type="eMail"
+      id="inputEMail"
+      class="form-control"
+      placeholder="EMail"
+      autofocus
+      [class.is-invalid]="eMail.invalid && eMail.touched"
+      formControlName="eMail">
+    <div class="invalid-feedback"
+      *ngIf="eMail.hasError('required')">
+      Пожалуйста, заполните Email
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="eMail.hasError('email')">
+      Пожалуйста, укажите валидный E-Mail
+    </div>
+  </div>
+
+  <!-- UserName -->
+  <div class="form-group">
+    <label for="inputUserName">Ник-нейм</label>
+    <input type="text"
+      id="inputUserName"
+      class="form-control"
+      placeholder="Ник-нейм"
+      autofocus
+      [class.is-invalid]="userName.invalid && userName.touched"
+      formControlName="userName">
+    <div class="invalid-feedback"
+      *ngIf="userName.hasError('required')">
+      Пожалуйста, заполните Ник-нейм
+    </div>
+  </div>
+
+  <!-- PhoneNumber -->
+  <div class="form-group">
+    <label for="inputPhoneNumber">Номер телефона</label>
+    <input type="text"
+      id="inputPhoneNumber"
+      class="form-control"
+      placeholder="Номер телефона"
+      autofocus
+      [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched"
+      formControlName="phoneNumber">
+    <div class="invalid-feedback"
+      *ngIf="phoneNumber.hasError('required')">
+      Пожалуйста, заполните номер телефона
+    </div>
+  </div>
+
+  <!-- Имя -->
+  <div class="form-group">
+    <label for="inputFirstName">Имя</label>
+    <input type="text"
+      id="inputFirstName"
+      class="form-control"
+      placeholder="Имя"
+      autofocus
+      [class.is-invalid]="firstName.invalid && firstName.touched"
+      formControlName="firstName">
+  </div>
+
+  <!-- Фамилия -->
+  <div class="form-group">
+    <label for="inputLastName">Фамилия</label>
+    <input type="text"
+      id="inputLastName"
+      class="form-control"
+      placeholder="Фамилия"
+      autofocus
+      [class.is-invalid]="lastName.invalid && lastName.touched"
+      formControlName="lastName">
+  </div>
+
+  <!-- Отчество -->
+  <div class="form-group">
+    <label for="inputMiddleName">Отчество</label>
+    <input type="text"
+      id="inputMiddleName"
+      class="form-control"
+      placeholder="Отчество"
+      autofocus
+      [class.is-invalid]="middleName.invalid && middle.touched"
+      formControlName="middleName">
+  </div>
+
+  <!-- Адрес -->
+  <div class="form-group">
+    <label for="inputAddress">Адрес</label>
+    <input type="text"
+      id="inputAddress"
+      class="form-control"
+      placeholder="Адрес"
+      autofocus
+      [class.is-invalid]="address.invalid && address.touched"
+      formControlName="address">
+  </div>
+
+  <!-- Регион -->
+  <div class="form-group">
+    <label for="regionId">Регион</label>
+    <select class="form-control custom-select"
+      id="regionId"
+      formControlName="regionId"
+      autofocus
+      [class.is-invalid]="regionId.invalid"
+      *ngIf="regionService.regions$ | async as regions">
+      <option [value]="null">Выберите регион</option>
+      <option *ngFor="let region of regions"
+        [value]="region.id">{{region.name}}</option>
+    </select>
+  </div>
+
+  <!-- Пароль -->
+  <div class="form-group">
+    <label for="inputPassword">Пароль</label>
+    <input [type]="passwordHide ? 'password' : 'text'"
+      id="inputPassword"
+      class="form-control"
+      placeholder="Пароль"
+      [class.is-invalid]="password.invalid && password.touched"
+      formControlName="password"
+      aria-describedby="passwordHelpBlock">
+    <small id="passwordHelpBlock"
+      class="form-text text-muted">
+      Пароль должен содержать 6-20 символов, заглавную букву, число и символ
+    </small>
+    <div class="invalid-feedback"
+      *ngIf="password.hasError('required')">
+      Пожалуйста, заполните Пароль
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="password.hasError('minlength')">
+      Пароль должен состоять минимум из {{password.errors['minlength']?.requiredLength}} символов
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="password.hasError('maxlength')">
+      Пароль должен состоять максимум из {{password.errors['maxlength']?.requiredLength}} символов
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="password.hasError('pattern')">
+      Пожалуйста, укажите валидный Пароль
+    </div>
+  </div>
+
+  <!-- Элемент для переключения видимости пароля -->
+  <input type="checkbox" [value]="passwordHide" (change)="onCheckboxChange($event)" /> Показать пароль
+
+  <!-- Повторный ввод пароля, если passwordHide = true -->
+  <div *ngIf="passwordHide" class="form-group">
+    <label for="inputPasswordRepeat">Повторите пароль</label>
+    <input [type]="passwordHide ? 'password' : 'text'"
+      id="inputPasswordRepeat"
+      class="form-control mb-3"
+      placeholder="Повторите пароль"
+      [class.is-invalid]="(confirmPassword.invalid || signupForm.hasError('confirmPassword')) && confirmPassword.touched"
+      formControlName="confirmPassword">
+    <div class="invalid-feedback"
+      *ngIf="confirmPassword.hasError('required')">
+      Пожалуйста, повторите пароль
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="signupForm.hasError('confirmPassword')">
+      Пароль не совпадает
+    </div>
+  </div>
+
+  <!-- Кнопка "Зарегистрироваться" -->
+  <button class="btn btn-lg btn-primary btn-block"
+    (click)="register()">Регистрация</button>
+    
+</form>
